@@ -16,13 +16,14 @@ Sub-marca de Join Media Co. Es una plataforma web — centro/archivo de recursos
 
 ### Paleta de color
 ```
---boveda:    #0E0D0B   /* Fondo principal — negro cálido */
---interior:  #1A1916   /* Cards y contenedores */
---sombra:    #2C2B28   /* Bordes, hover states */
---pergamino: #EDE8DF   /* Texto principal */
---oro:       #C9A55A   /* Acento premium — dial, detalles */
---vivo:      #A3F55A   /* Acción, CTAs, comunidad, gamificación */
+--boveda:    #080807          /* Fondo principal — negro cálido (actualizado) */
+--pergamino: #EDE8DF          /* Texto principal */
+--oro:       #C9A55A          /* Acento premium — dial, detalles */
+--vivo:      #A3F55A          /* Acción, CTAs, comunidad, gamificación */
+--glass:     rgba(255,255,255,0.045)   /* Fondo glass de panels/cards */
+--glass-border: rgba(255,255,255,0.09) /* Bordes glass */
 ```
+El fondo usa gradientes radiales fijos (`background-attachment: fixed`) con orbs de color dorado y verde para que el efecto glass tenga algo que difuminar.
 
 ### Tipografía
 - **Serif:** EB Garamond — titulares, wordmark, "La" en cursiva
@@ -36,6 +37,29 @@ Sub-marca de Join Media Co. Es una plataforma web — centro/archivo de recursos
 - `VEDA` en EB Garamond regular
 - Sello: "BY JOIN MEDIA CO." en sans, tracking alto, opacidad muy baja
 - Archivo fuente del logo: `laboveda-logo.svg`
+
+#### Técnica SVG del dial (importante para futuros ajustes)
+El dial usa **dos `<g>` anidados** para separar posición de rotación:
+```html
+<g transform="translate(X,Y)">        <!-- solo posiciona, nunca tocar con JS -->
+  <g id="heroDial" style="transform-origin:center; transform-box:fill-box; transition:...">
+    <!-- contenido del dial -->
+  </g>
+</g>
+```
+`transform-box:fill-box` + `transform-origin:center` garantiza que gire sobre su propio eje. Si se pone el translate y la rotación en el mismo `<g>`, el JS sobreescribe la posición al rotar.
+
+#### Posiciones actuales del wordmark hero (SVG viewBox="0 0 415 100")
+- `La` italic 64px → x=0
+- `B` 76px → x=84
+- Dial → `translate(135,5)`, circle cx=36 cy=44 r=34
+- `VEDA` 76px → x=214
+
+#### Posiciones actuales del logo nav (SVG viewBox="0 0 146 36", height=26)
+- `La` italic 22px → x=0
+- `B` 26px → x=30
+- Dial → `translate(48,1)`, circle cx=13 cy=16 r=13
+- `VEDA` 26px → x=76
 
 ### Concepto de diseño
 "Archivo vivo" — base oscura y densa (permanencia, valor) con acentos vivos (comunidad, movimiento). Premium en estructura, humano en detalles.
@@ -109,6 +133,24 @@ laboveda/
 - ✅ Claude Code instalado y configurado
 - ✅ Logo exportado en SVG para Illustrator (3 variantes)
 - ✅ CLAUDE.md creado con contexto completo
+
+### v0.2 — 2026-05-21
+- ✅ **Rediseño glassmorphism estilo iOS**
+  - Fondo con 4 orbs de gradiente (dorado + verde) fijos al viewport
+  - Nav, cards, pills, botones, gamif-banner: `backdrop-filter: blur() saturate()`
+  - Variables CSS `--glass` y `--glass-border` unificadas
+  - Border-radius más redondeado: 20px cards, 24px banner, 16px íconos de nivel
+  - Íconos de nivel: círculos → squircles (iOS style)
+- ✅ **Animación de intro "cerradura de bóveda"**
+  - Pantalla completa oscura con el dial centrado
+  - 3 giros combinados (derecha → izquierda → derecha) con puntos de progreso
+  - Al desbloquear: dial brilla verde, texto "Desbloqueado", línea dorada en el centro
+  - Las dos mitades se abren (arriba/abajo) revelando la web
+  - Solo se reproduce **una vez por sesión** (sessionStorage)
+- ✅ **Fix rotación del dial hero** — el dial giraba desplazándose porque el `transform` CSS sobreescribía el `translate` SVG del mismo elemento. Solución: dos `<g>` anidados (uno para posición, otro para rotación) + `transform-origin:center; transform-box:fill-box`
+- ✅ **Espaciado uniforme wordmark hero** — gap antes y después del dial igualados (~6-9px). ViewBox ajustado de 580 a 415 para centrar el logo
+- ✅ **Espaciado uniforme logo nav** — mismo ajuste proporcional. Dial: translate(58→48), VEDA: x=86→76, viewBox: 220→146
+- ✅ Git configurado con identidad: Davo / joinmediaco@gmail.com
 
 ### Próxima sesión
 - [ ] Revisar homepage en mobile y corregir lo que sea necesario
