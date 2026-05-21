@@ -267,9 +267,98 @@
   .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
   .footer-links a { font-size: 12px; color: rgba(237,232,223,0.25); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: rgba(237,232,223,0.55); }
+
+  /* ── VAULT INTRO ── */
+  #vault-intro {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #vault-panel-top, #vault-panel-bottom {
+    position: absolute; left: 0; right: 0;
+    background: #080807;
+    transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1);
+    will-change: transform;
+  }
+  #vault-panel-top    { top: 0; height: 50.5%; }
+  #vault-panel-bottom { bottom: 0; height: 50.5%; }
+  #vault-panel-top.open    { transform: translateY(-101%); }
+  #vault-panel-bottom.open { transform: translateY(101%); }
+  #vault-seam {
+    position: absolute; left: 0; right: 0; top: 50%; height: 1px; z-index: 1;
+    background: rgba(201,165,90,0);
+    transition: background 0.5s, box-shadow 0.5s;
+  }
+  #vault-seam.glow {
+    background: rgba(201,165,90,0.75);
+    box-shadow: 0 0 28px rgba(201,165,90,0.55), 0 0 90px rgba(201,165,90,0.2);
+  }
+  #vault-content {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 28px;
+    opacity: 0; animation: fadeUp 0.5s 0.2s ease forwards;
+  }
+  #vault-dial-wrap {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #vault-dial-outer {
+    position: absolute; width: 214px; height: 214px;
+    border-radius: 50%; border: 0.5px solid rgba(201,165,90,0.12);
+  }
+  #vault-dial {
+    transition: transform 0.9s cubic-bezier(0.4, 0, 0.15, 1);
+    filter: drop-shadow(0 0 10px rgba(201,165,90,0.12));
+  }
+  #vault-dial.unlocked { filter: drop-shadow(0 0 24px rgba(163,245,90,0.6)); }
+  #vault-dots { display: flex; gap: 14px; }
+  .vault-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(201,165,90,0.12); border: 0.5px solid rgba(201,165,90,0.3);
+    transition: all 0.35s ease; display: inline-block;
+  }
+  .vault-dot.active {
+    background: var(--vivo); border-color: var(--vivo);
+    box-shadow: 0 0 10px rgba(163,245,90,0.65); transform: scale(1.25);
+  }
+  #vault-label {
+    font-family: var(--serif); font-style: italic; font-size: 14px;
+    color: rgba(237,232,223,0.3); letter-spacing: 0.14em;
+    transition: color 0.4s;
+  }
+  #vault-label.unlocked { color: rgba(163,245,90,0.8); }
 </style>
 </head>
 <body>
+
+<!-- ── VAULT INTRO ── -->
+<div id="vault-intro" aria-hidden="true">
+  <div id="vault-panel-top"></div>
+  <div id="vault-panel-bottom"></div>
+  <div id="vault-seam"></div>
+  <div id="vault-content">
+    <div id="vault-dial-wrap">
+      <div id="vault-dial-outer"></div>
+      <svg id="vault-dial" viewBox="0 0 160 160" width="160" height="160">
+        <circle cx="80" cy="80" r="72" fill="none" stroke="#C9A55A" stroke-width="1.5"/>
+        <g id="vt-minor" stroke="#C9A55A" stroke-width="0.7" opacity="0.35"></g>
+        <g id="vt-major" stroke="#C9A55A" stroke-width="2"></g>
+        <circle cx="80" cy="80" r="26" fill="none" stroke="#C9A55A" stroke-width="0.5" opacity="0.18"/>
+        <circle cx="80" cy="80" r="11" fill="#C9A55A"/>
+        <circle cx="80" cy="80" r="5.5" fill="#080807"/>
+        <circle cx="80" cy="80" r="2" fill="#C9A55A"/>
+        <polygon points="80,8 75.5,18 84.5,18" fill="#A3F55A"/>
+        <line x1="80" y1="18" x2="80" y2="22" stroke="#A3F55A" stroke-width="1" opacity="0.5"/>
+      </svg>
+    </div>
+    <div id="vault-dots">
+      <span class="vault-dot"></span>
+      <span class="vault-dot"></span>
+      <span class="vault-dot"></span>
+    </div>
+    <div id="vault-label">Accediendo a la bóveda</div>
+  </div>
+</div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -691,6 +780,91 @@
       dial.style.transform = `rotate(${dialAngle}deg)`;
     });
   }
+</script>
+
+<script>
+(function () {
+  const intro = document.getElementById('vault-intro');
+  if (!intro) return;
+
+  // Solo una vez por sesión
+  if (sessionStorage.getItem('vaultOpened')) { intro.remove(); return; }
+  sessionStorage.setItem('vaultOpened', '1');
+
+  // Generar marcas del dial en SVG
+  const ns = 'http://www.w3.org/2000/svg';
+  const minor = document.getElementById('vt-minor');
+  const major = document.getElementById('vt-major');
+  for (let i = 0; i < 36; i++) {
+    const deg = i * 10;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', '80');
+    line.setAttribute('x2', '80');
+    if (deg % 30 === 0) {
+      line.setAttribute('y1', '8');  line.setAttribute('y2', '16');
+      major.appendChild(line);
+    } else {
+      line.setAttribute('y1', '8');  line.setAttribute('y2', '12');
+      minor.appendChild(line);
+    }
+    line.setAttribute('transform', `rotate(${deg} 80 80)`);
+  }
+
+  const dial     = document.getElementById('vault-dial');
+  const dots     = document.querySelectorAll('.vault-dot');
+  const label    = document.getElementById('vault-label');
+  const panelTop = document.getElementById('vault-panel-top');
+  const panelBot = document.getElementById('vault-panel-bottom');
+  const seam     = document.getElementById('vault-seam');
+
+  let angle = 0;
+
+  function spin(delta, ms) {
+    return new Promise(r => {
+      angle += delta;
+      dial.style.transition = `transform ${ms}ms cubic-bezier(0.4, 0, 0.15, 1)`;
+      dial.style.transform  = `rotate(${angle}deg)`;
+      setTimeout(r, ms + 80);
+    });
+  }
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  async function run() {
+    await wait(400);
+
+    await spin(480, 900);                    // derecha ~1.3 vueltas
+    dots[0].classList.add('active');
+    await wait(320);
+
+    await spin(-300, 780);                   // izquierda ~0.8 vueltas
+    dots[1].classList.add('active');
+    await wait(320);
+
+    await spin(160, 580);                    // derecha ~0.4 vueltas
+    dots[2].classList.add('active');
+    await wait(260);
+
+    // Desbloqueo
+    dial.classList.add('unlocked');
+    label.textContent = 'Desbloqueado';
+    label.classList.add('unlocked');
+    seam.classList.add('glow');
+
+    await wait(700);
+
+    // Apertura de puertas
+    panelTop.classList.add('open');
+    panelBot.classList.add('open');
+
+    await wait(1100);
+    intro.style.transition    = 'opacity 0.3s';
+    intro.style.opacity       = '0';
+    intro.style.pointerEvents = 'none';
+    setTimeout(() => intro.remove(), 320);
+  }
+
+  run();
+})();
 </script>
 </body>
 </html>
