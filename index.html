@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="La Bóveda — El archivo de recursos para diseñadores, mercadólogos y creativos. Templates, fuentes, paletas y más. Gratis para empezar."/>
+<title>La Bóveda — Recursos para crear mejor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --boveda:    #0E0D0B;
+    --interior:  #1A1916;
+    --sombra:    #2C2B28;
+    --pergamino: #EDE8DF;
+    --oro:       #C9A55A;
+    --vivo:      #A3F55A;
+    --serif:     'EB Garamond', Georgia, serif;
+    --sans:      'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--boveda);
+    color: var(--pergamino);
+    font-family: var(--sans);
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.025; pointer-events: none; z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    background: rgba(14,13,11,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 0.5px solid rgba(237,232,223,0.07);
+  }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { font-size: 13px; color: rgba(237,232,223,0.5); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--pergamino); }
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
+  .btn-ghost {
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    padding: 7px 16px; border-radius: 8px;
+    background: transparent; color: rgba(237,232,223,0.6);
+    border: 0.5px solid rgba(237,232,223,0.15); cursor: pointer; transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(237,232,223,0.06); color: var(--pergamino); }
+  .btn-primary {
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    padding: 7px 16px; border-radius: 8px;
+    background: var(--vivo); color: var(--boveda);
+    border: none; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #b8ff6a; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 120px 40px 80px;
+    position: relative; text-align: center; overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(201,165,90,0.055) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+  .hero-ring { position: absolute; opacity: 0.04; top: 50%; left: 50%; transform: translate(-50%, -58%); }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--oro); border: 0.5px solid rgba(201,165,90,0.25);
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 32px;
+    background: rgba(201,165,90,0.05);
+  }
+  .hero-label::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--vivo); display: inline-block; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
+  .hero-wordmark { margin-bottom: 16px; }
+  .hero-sub {
+    font-family: var(--serif); font-size: clamp(18px, 2.5vw, 26px);
+    font-style: italic; color: rgba(237,232,223,0.35);
+    margin-bottom: 40px; letter-spacing: 0.01em;
+  }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; margin-bottom: 64px; flex-wrap: wrap; }
+  .btn-hero-primary {
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    padding: 13px 28px; border-radius: 10px;
+    background: var(--vivo); color: var(--boveda);
+    border: none; cursor: pointer; transition: all 0.25s;
+  }
+  .btn-hero-primary:hover { background: #b8ff6a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(163,245,90,0.2); }
+  .btn-hero-ghost {
+    font-family: var(--sans); font-size: 14px; font-weight: 400;
+    padding: 13px 28px; border-radius: 10px;
+    background: transparent; color: rgba(237,232,223,0.65);
+    border: 0.5px solid rgba(237,232,223,0.15); cursor: pointer; transition: all 0.25s;
+  }
+  .btn-hero-ghost:hover { background: rgba(237,232,223,0.05); color: var(--pergamino); }
+  .hero-stats {
+    display: flex; gap: 48px; justify-content: center;
+    padding-top: 40px; border-top: 0.5px solid rgba(237,232,223,0.07); flex-wrap: wrap;
+  }
+  .stat-num { font-family: var(--serif); font-size: 32px; font-weight: 500; letter-spacing: -0.02em; }
+  .stat-label { font-size: 11px; color: rgba(237,232,223,0.35); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+  .hero-glow   { animation: none; opacity: 1; }
+  .hero-ring   { animation: none; opacity: 0.04; }
+  .hero-label  { animation-delay: 0.1s; }
+  .hero-wordmark { animation-delay: 0.25s; }
+  .hero-sub    { animation-delay: 0.4s; }
+  .hero-actions { animation-delay: 0.55s; }
+  .hero-stats  { animation-delay: 0.7s; }
+
+  /* ── CATS ── */
+  .cats { padding: 40px 40px 0; position: relative; z-index: 1; }
+  .cat-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cat-pill {
+    font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px;
+    border: 0.5px solid rgba(237,232,223,0.12); color: rgba(237,232,223,0.55);
+    cursor: pointer; transition: all 0.2s; background: transparent; font-family: var(--sans);
+  }
+  .cat-pill:hover, .cat-pill.active {
+    background: rgba(201,165,90,0.1); border-color: rgba(201,165,90,0.3); color: var(--oro);
+  }
+
+  /* ── SECTION ── */
+  section { padding: 80px 40px; position: relative; z-index: 1; }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
+  .section-title { font-family: var(--serif); font-size: 32px; font-weight: 400; letter-spacing: -0.01em; }
+  .section-link { font-size: 12px; color: var(--oro); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: opacity 0.2s; }
+  .section-link:hover { opacity: 0.7; }
+
+  /* ── GRID ── */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2,1fr); } .card-featured { grid-column: span 2; } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .card-featured { grid-column: span 1; grid-template-columns: 1fr; } nav { padding: 0 20px; } section, .cats { padding-left: 20px; padding-right: 20px; } }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--interior); border: 0.5px solid rgba(237,232,223,0.07);
+    border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.25s;
+  }
+  .card:hover { border-color: rgba(201,165,90,0.25); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+  .card-thumb {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .card-body { padding: 16px; }
+  .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .tag { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; }
+  .tag-new     { background: rgba(163,245,90,0.12); color: var(--vivo);  border: 0.5px solid rgba(163,245,90,0.2); }
+  .tag-premium { background: rgba(201,165,90,0.10); color: var(--oro);   border: 0.5px solid rgba(201,165,90,0.2); }
+  .tag-cat     { background: rgba(237,232,223,0.06); color: rgba(237,232,223,0.45); border: 0.5px solid rgba(237,232,223,0.1); }
+  .card-title  { font-family: var(--serif); font-size: 17px; font-weight: 500; color: var(--pergamino); margin-bottom: 6px; line-height: 1.25; letter-spacing: -0.01em; }
+  .card-desc   { font-size: 12px; color: rgba(237,232,223,0.38); line-height: 1.5; margin-bottom: 14px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 0.5px solid rgba(237,232,223,0.06); }
+  .card-author { font-size: 11px; color: rgba(237,232,223,0.3); }
+  .card-action {
+    font-size: 11px; font-weight: 600; font-family: var(--sans);
+    padding: 5px 12px; border-radius: 6px;
+    background: var(--vivo); color: var(--boveda); border: none; cursor: pointer; transition: all 0.2s;
+  }
+  .card-action:hover { background: #b8ff6a; }
+  .card-action.locked { background: rgba(201,165,90,0.1); color: var(--oro); border: 0.5px solid rgba(201,165,90,0.2); }
+
+  /* ── FEATURED ── */
+  .card-featured {
+    grid-column: span 2; background: var(--interior);
+    border: 0.5px solid rgba(201,165,90,0.15); border-radius: 12px; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr; cursor: pointer; transition: all 0.25s;
+  }
+  .card-featured:hover { border-color: rgba(201,165,90,0.35); transform: translateY(-3px); }
+  .card-featured-visual {
+    background: linear-gradient(135deg, #1A1916 0%, #0E0D0B 100%);
+    display: flex; align-items: center; justify-content: center; min-height: 240px;
+  }
+  .card-featured-body { padding: 28px; display: flex; flex-direction: column; justify-content: center; }
+
+  /* ── GAMIF ── */
+  .gamif-banner {
+    background: var(--interior); border: 0.5px solid rgba(237,232,223,0.07);
+    border-radius: 14px; padding: 32px 36px;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; align-items: center;
+  }
+  @media (max-width: 700px) { .gamif-banner { grid-template-columns: repeat(2,1fr); } }
+  .level-item { text-align: center; }
+  .level-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin: 0 auto 10px;
+  }
+  .level-name { font-family: var(--serif); font-size: 15px; margin-bottom: 3px; }
+  .level-desc { font-size: 11px; color: rgba(237,232,223,0.35); line-height: 1.4; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid rgba(237,232,223,0.07);
+    padding: 40px 40px 28px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    position: relative; z-index: 1;
+  }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: rgba(237,232,223,0.25); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(237,232,223,0.55); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <svg viewBox="0 0 220 36" height="26" style="display:block; flex-shrink:0;">
+    <text x="0" y="28" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="22" fill="rgba(237,232,223,0.75)">La</text>
+    <text x="30" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">B</text>
+    <g transform="translate(58,1)">
+      <circle cx="13" cy="16" r="13" fill="none" stroke="#C9A55A" stroke-width="1.2"/>
+      <g stroke="#C9A55A" stroke-width="0.5" opacity="0.4">
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(0 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(30 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(60 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(90 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(120 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(150 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(180 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(210 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(240 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(270 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(300 13 16)"/>
+        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(330 13 16)"/>
+      </g>
+      <circle cx="13" cy="16" r="4" fill="#C9A55A"/>
+      <circle cx="13" cy="16" r="2" fill="#0E0D0B"/>
+      <polygon points="13,3 11,6 15,6" fill="#A3F55A"/>
+    </g>
+    <text x="86" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">VEDA</text>
+  </svg>
+
+  <div class="nav-links">
+    <a href="#">Recursos</a>
+    <a href="#">Categorías</a>
+    <a href="#">Comunidad</a>
+    <a href="#">Bóvedas</a>
+  </div>
+
+  <div class="nav-actions">
+    <button class="btn-ghost">Ingresar</button>
+    <button class="btn-primary">Registrarse</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <svg class="hero-ring" width="760" height="760" viewBox="0 0 800 800">
+    <circle cx="400" cy="400" r="395" fill="none" stroke="#C9A55A" stroke-width="0.8"/>
+    <circle cx="400" cy="400" r="328" fill="none" stroke="#C9A55A" stroke-width="0.4" opacity="0.6"/>
+    <g stroke="#C9A55A" stroke-width="0.9">
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(0 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(6 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(12 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(18 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(24 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(30 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(36 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(42 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(48 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(54 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(60 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(66 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(72 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(78 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(84 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(90 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(96 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(102 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(108 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(114 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(120 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(126 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(132 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(138 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(144 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(150 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(156 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(162 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(168 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(174 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(180 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(186 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(192 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(198 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(204 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(210 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(216 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(222 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(228 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(234 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(240 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(246 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(252 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(258 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(264 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(270 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(276 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(282 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(288 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(294 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(300 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(306 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(312 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(318 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(324 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="28" transform="rotate(330 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(336 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(342 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(348 400 400)"/>
+      <line x1="400" y1="5" x2="400" y2="18" transform="rotate(354 400 400)"/>
+    </g>
+    <polygon points="400,5 394,20 406,20" fill="#A3F55A" opacity="0.5"/>
+  </svg>
+
+  <div class="hero-label">Acceso abierto · Comunidad creativa</div>
+
+  <div class="hero-wordmark">
+    <svg id="heroWordmark" viewBox="0 0 580 100" style="width:min(580px,88vw);display:block;margin:0 auto;">
+      <text x="0" y="80" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="64" fill="rgba(237,232,223,0.7)">La</text>
+      <text x="84" y="80" font-family="'EB Garamond',Georgia,serif" font-size="76" fill="#EDE8DF" letter-spacing="-1">B</text>
+      <g id="heroDial" transform="translate(166,5)" style="transform-origin:36px 44px; transition:transform 0.65s cubic-bezier(0.34,1.56,0.64,1);">
+        <circle cx="36" cy="44" r="34" fill="none" stroke="#C9A55A" stroke-width="2"/>
+        <g stroke="#C9A55A" stroke-width="0.65" opacity="0.38">
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(0 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(10 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(20 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(30 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(40 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(50 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(60 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(70 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(80 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(90 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(100 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(110 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(120 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(130 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(140 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(150 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(160 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(170 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(180 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(190 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(200 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(210 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(220 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(230 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(240 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(250 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(260 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(270 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(280 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(290 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(300 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(310 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(320 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(330 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(340 36 44)"/>
+          <line x1="36" y1="10.5" x2="36" y2="14" transform="rotate(350 36 44)"/>
+        </g>
+        <g stroke="#C9A55A" stroke-width="1.5">
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(0 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(30 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(60 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(90 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(120 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(150 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(180 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(210 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(240 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(270 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(300 36 44)"/>
+          <line x1="36" y1="10" x2="36" y2="16" transform="rotate(330 36 44)"/>
+        </g>
+        <circle cx="36" cy="44" r="20" fill="none" stroke="#C9A55A" stroke-width="0.5" opacity="0.18"/>
+        <circle cx="36" cy="44" r="8" fill="#C9A55A"/>
+        <circle cx="36" cy="44" r="4" fill="#0E0D0B"/>
+        <circle cx="36" cy="44" r="1.5" fill="#C9A55A"/>
+        <polygon points="36,10 32.5,17 39.5,17" fill="#A3F55A"/>
+        <line x1="36" y1="17" x2="36" y2="20" stroke="#A3F55A" stroke-width="1" opacity="0.5"/>
+      </g>
+      <text x="245" y="80" font-family="'EB Garamond',Georgia,serif" font-size="76" fill="#EDE8DF" letter-spacing="-1">VEDA</text>
+    </svg>
+  </div>
+
+  <p class="hero-sub">El archivo de recursos que siempre quisiste tener.</p>
+
+  <div class="hero-actions">
+    <button class="btn-hero-primary">Abrir la bóveda</button>
+    <button class="btn-hero-ghost">Explorar recursos →</button>
+  </div>
+
+  <div class="hero-stats">
+    <div><div class="stat-num">1,240+</div><div class="stat-label">Recursos</div></div>
+    <div><div class="stat-num">48</div><div class="stat-label">Categorías</div></div>
+    <div><div class="stat-num">3,800+</div><div class="stat-label">Creativos</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-label">Gratis para empezar</div></div>
+  </div>
+</div>
+
+<!-- ── CATS ── -->
+<div class="cats">
+  <div style="margin-bottom:12px;">
+    <p style="font-family:'EB Garamond',serif;font-size:13px;color:rgba(237,232,223,0.35);letter-spacing:0.1em;text-transform:uppercase;">Explorar por categoría</p>
+  </div>
+  <div class="cat-row">
+    <button class="cat-pill active" data-cat="all">Todo</button>
+    <button class="cat-pill" data-cat="branding">Branding</button>
+    <button class="cat-pill" data-cat="ui">UI / UX</button>
+    <button class="cat-pill" data-cat="tipo">Tipografía</button>
+    <button class="cat-pill" data-cat="ilus">Ilustración</button>
+    <button class="cat-pill" data-cat="foto">Fotografía</button>
+    <button class="cat-pill" data-cat="mkt">Marketing</button>
+    <button class="cat-pill" data-cat="motion">Motion</button>
+    <button class="cat-pill" data-cat="color">Color</button>
+    <button class="cat-pill" data-cat="mock">Mockups</button>
+  </div>
+</div>
+
+<!-- ── RECURSOS ── -->
+<section>
+  <div class="section-header">
+    <h2 class="section-title">Recursos destacados</h2>
+    <a href="#" class="section-link">Ver todos →</a>
+  </div>
+  <div class="grid">
+
+    <!-- Featured -->
+    <div class="card-featured">
+      <div class="card-featured-visual">
+        <svg width="140" height="140" viewBox="0 0 160 160" opacity="0.55">
+          <circle cx="80" cy="80" r="74" fill="none" stroke="#C9A55A" stroke-width="1.2"/>
+          <circle cx="80" cy="80" r="57" fill="none" stroke="#C9A55A" stroke-width="0.5" opacity="0.4"/>
+          <g stroke="#C9A55A" stroke-width="0.8">
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(0 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(15 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(30 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(45 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(60 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(75 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(90 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(105 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(120 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(135 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(150 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(165 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(180 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(195 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(210 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(225 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(240 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(255 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(270 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(285 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(300 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="14" transform="rotate(315 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(330 80 80)"/>
+            <line x1="80" y1="6" x2="80" y2="10" transform="rotate(345 80 80)"/>
+          </g>
+          <circle cx="80" cy="80" r="18" fill="rgba(201,165,90,0.12)" stroke="#C9A55A" stroke-width="0.8"/>
+          <circle cx="80" cy="80" r="8" fill="#C9A55A"/>
+          <circle cx="80" cy="80" r="4" fill="#1A1916"/>
+          <polygon points="80,6 76,14 84,14" fill="#A3F55A"/>
+        </svg>
+      </div>
+      <div class="card-featured-body">
+        <div class="card-tags" style="margin-bottom:14px;">
+          <span class="tag tag-new">Nuevo</span>
+          <span class="tag tag-cat">Branding</span>
+        </div>
+        <h3 style="font-family:'EB Garamond',serif;font-size:24px;font-weight:500;color:#EDE8DF;margin-bottom:10px;line-height:1.2;letter-spacing:-0.01em;">Kit completo de identidad visual para startups</h3>
+        <p style="font-size:12px;color:rgba(237,232,223,0.38);line-height:1.6;margin-bottom:20px;">Plantillas en Figma e Illustrator: logo, paleta, tipografía, papelería y aplicaciones digitales.</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:11px;color:rgba(237,232,223,0.3);">por Join Media Co.</span>
+          <button class="card-action" style="font-size:12px;padding:8px 18px;">Descargar gratis</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1c1a17,#0E0D0B);">🎨</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-cat">Color</span></div>
+        <h3 class="card-title">100 paletas de color para marca</h3>
+        <p class="card-desc">Paletas curadas con valores HEX, RGB y CMYK. Organizadas por tono y temperamento.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#18171a,#0E0D0B);">✍️</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Tipografía</span></div>
+        <h3 class="card-title">Guía de maridaje tipográfico</h3>
+        <p class="card-desc">50 combinaciones de fuentes probadas con ejemplos visuales y contextos de uso.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 120 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#171a18,#0E0D0B);">📐</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-new">Nuevo</span><span class="tag tag-cat">UI/UX</span></div>
+        <h3 class="card-title">Sistema de grillas para web y app</h3>
+        <p class="card-desc">Plantillas en Figma: 4, 8 y 12 columnas para desktop, tablet y mobile.</p>
+        <div class="card-footer">
+          <span class="card-author">comunidad</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1a1718,#0E0D0B);">📦</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-cat">Mockups</span></div>
+        <h3 class="card-title">Pack de mockups de packaging</h3>
+        <p class="card-desc">40 mockups de cajas, bolsas y etiquetas en PSD y Figma. Smart object listo.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#161819,#0E0D0B);">📣</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Marketing</span></div>
+        <h3 class="card-title">Estrategia de contenido para redes</h3>
+        <p class="card-desc">Calendario editorial + guía de tono de voz para marcas digitales.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 80 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── GAMIFICACIÓN ── -->
+<section style="padding-top:0;">
+  <div class="section-header">
+    <h2 class="section-title">Crece con la comunidad</h2>
+    <a href="#" class="section-link">Cómo funciona →</a>
+  </div>
+  <div class="gamif-banner">
+    <div class="level-item">
+      <div class="level-icon" style="background:rgba(237,232,223,0.06);border:0.5px solid rgba(237,232,223,0.12);">🔑</div>
+      <div class="level-name">Visitante</div>
+      <div class="level-desc">Acceso a recursos básicos sin registro</div>
+    </div>
+    <div class="level-item">
+      <div class="level-icon" style="background:rgba(201,165,90,0.08);border:0.5px solid rgba(201,165,90,0.2);">📁</div>
+      <div class="level-name" style="color:var(--oro);">Curador</div>
+      <div class="level-desc">Guarda favoritos y accede a colecciones</div>
+    </div>
+    <div class="level-item">
+      <div class="level-icon" style="background:rgba(201,165,90,0.12);border:0.5px solid rgba(201,165,90,0.3);">🗄️</div>
+      <div class="level-name" style="color:var(--oro);">Archivista</div>
+      <div class="level-desc">Sube recursos, gana bóvedas y accede a premium</div>
+    </div>
+    <div class="level-item">
+      <div class="level-icon" style="background:rgba(163,245,90,0.08);border:0.5px solid rgba(163,245,90,0.2);">🏛️</div>
+      <div class="level-name" style="color:var(--vivo);">Guardián</div>
+      <div class="level-desc">Modera, acceso total e insignia especial</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:28px;">
+    <button class="btn-hero-primary">Unirme gratis</button>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div style="font-family:var(--serif);font-size:14px;color:rgba(237,232,223,0.35);margin-bottom:5px;">
+      <em>La</em> Bóveda &middot; by Join Media Co.
+    </div>
+    <div style="font-size:11px;color:rgba(237,232,223,0.18);">© 2025 · Todos los derechos reservados</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Recursos</a>
+    <a href="#">Comunidad</a>
+    <a href="#">Términos</a>
+    <a href="#">Privacidad</a>
+    <a href="#">Contacto</a>
+  </div>
+  <div style="font-size:11px;color:rgba(237,232,223,0.18);text-align:right;">laboveda.vercel.app</div>
+</footer>
+
+<script>
+  // Categorías
+  document.querySelectorAll('.cat-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // Dial gira en hover
+  let dialAngle = 0;
+  const wm = document.getElementById('heroWordmark');
+  const dial = document.getElementById('heroDial');
+  if (wm && dial) {
+    wm.addEventListener('mouseenter', () => {
+      dialAngle += 40;
+      dial.style.transform = `rotate(${dialAngle}deg)`;
+    });
+  }
+</script>
+</body>
+</html>
