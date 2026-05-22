@@ -5,76 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="La Bóveda — El archivo de recursos para diseñadores, mercadólogos y creativos. Templates, fuentes, paletas y más. Gratis para empezar."/>
 <title>La Bóveda — Recursos para crear mejor</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
 <style>
-  :root {
-    --boveda:    #080807;
-    --pergamino: #EDE8DF;
-    --oro:       #C9A55A;
-    --vivo:      #A3F55A;
-    --serif:     'EB Garamond', Georgia, serif;
-    --sans:      'DM Sans', system-ui, sans-serif;
-    --glass:     rgba(255,255,255,0.045);
-    --glass-border: rgba(255,255,255,0.09);
-    --glass-blur: blur(28px) saturate(160%);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background:
-      radial-gradient(ellipse 80% 55% at 12% 18%, rgba(201,165,90,0.16) 0%, transparent 60%),
-      radial-gradient(ellipse 65% 50% at 88% 60%, rgba(163,245,90,0.09) 0%, transparent 55%),
-      radial-gradient(ellipse 55% 40% at 48% 95%, rgba(201,165,90,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse 45% 35% at 72% 8%,  rgba(163,245,90,0.06) 0%, transparent 45%),
-      #080807;
-    background-attachment: fixed;
-    color: var(--pergamino);
-    font-family: var(--sans);
-    font-size: 15px;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.028; pointer-events: none; z-index: 0;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 40px; height: 64px;
-    background: rgba(8,8,7,0.5);
-    backdrop-filter: blur(48px) saturate(180%);
-    -webkit-backdrop-filter: blur(48px) saturate(180%);
-    border-bottom: 0.5px solid var(--glass-border);
-  }
-  .nav-links { display: flex; align-items: center; gap: 28px; }
-  .nav-links a { font-size: 13px; color: rgba(237,232,223,0.5); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--pergamino); }
-  .nav-actions { display: flex; align-items: center; gap: 10px; }
-  .btn-ghost {
-    font-family: var(--sans); font-size: 12px; font-weight: 500;
-    padding: 7px 16px; border-radius: 10px;
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: rgba(237,232,223,0.7);
-    border: 0.5px solid var(--glass-border); cursor: pointer; transition: all 0.2s;
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.13); color: var(--pergamino); }
-  .btn-primary {
-    font-family: var(--sans); font-size: 12px; font-weight: 600;
-    padding: 7px 16px; border-radius: 10px;
-    background: var(--vivo); color: var(--boveda);
-    border: none; cursor: pointer; transition: all 0.2s;
-  }
-  .btn-primary:hover { background: #b8ff6a; transform: translateY(-1px); }
-
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -104,10 +40,6 @@
     content: ''; width: 6px; height: 6px; border-radius: 50%;
     background: var(--vivo); display: inline-block; animation: pulse 2s infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.75); }
-  }
   .hero-wordmark { margin-bottom: 16px; }
   .hero-sub {
     font-family: var(--serif); font-size: clamp(18px, 2.5vw, 26px);
@@ -115,23 +47,6 @@
     margin-bottom: 40px; letter-spacing: 0.01em;
   }
   .hero-actions { display: flex; gap: 12px; justify-content: center; margin-bottom: 64px; flex-wrap: wrap; }
-  .btn-hero-primary {
-    font-family: var(--sans); font-size: 14px; font-weight: 600;
-    padding: 13px 28px; border-radius: 14px;
-    background: var(--vivo); color: var(--boveda);
-    border: none; cursor: pointer; transition: all 0.25s;
-  }
-  .btn-hero-primary:hover { background: #b8ff6a; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(163,245,90,0.25); }
-  .btn-hero-ghost {
-    font-family: var(--sans); font-size: 14px; font-weight: 400;
-    padding: 13px 28px; border-radius: 14px;
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    color: rgba(237,232,223,0.7);
-    border: 0.5px solid var(--glass-border); cursor: pointer; transition: all 0.25s;
-  }
-  .btn-hero-ghost:hover { background: rgba(255,255,255,0.13); color: var(--pergamino); }
   .hero-stats {
     display: flex; gap: 48px; justify-content: center;
     padding-top: 40px; border-top: 0.5px solid var(--glass-border); flex-wrap: wrap;
@@ -139,11 +54,7 @@
   .stat-num { font-family: var(--serif); font-size: 32px; font-weight: 500; letter-spacing: -0.02em; }
   .stat-label { font-size: 11px; color: rgba(237,232,223,0.35); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  /* Animaciones de entrada hero */
   .hero > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
   .hero-glow   { animation: none; opacity: 1; }
   .hero-ring   { animation: none; opacity: 0.04; }
@@ -153,92 +64,7 @@
   .hero-actions { animation-delay: 0.55s; }
   .hero-stats  { animation-delay: 0.7s; }
 
-  /* ── CATS ── */
-  .cats { padding: 40px 40px 0; position: relative; z-index: 1; }
-  .cat-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .cat-pill {
-    font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px;
-    border: 0.5px solid var(--glass-border); color: rgba(237,232,223,0.55);
-    cursor: pointer; transition: all 0.2s;
-    background: var(--glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    font-family: var(--sans);
-  }
-  .cat-pill:hover, .cat-pill.active {
-    background: rgba(201,165,90,0.12); border-color: rgba(201,165,90,0.32); color: var(--oro);
-  }
-
-  /* ── SECTION ── */
-  section { padding: 80px 40px; position: relative; z-index: 1; }
-  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
-  .section-title { font-family: var(--serif); font-size: 32px; font-weight: 400; letter-spacing: -0.01em; }
-  .section-link { font-size: 12px; color: var(--oro); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: opacity 0.2s; }
-  .section-link:hover { opacity: 0.7; }
-
-  /* ── GRID ── */
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2,1fr); } .card-featured { grid-column: span 2; } }
-  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .card-featured { grid-column: span 1; grid-template-columns: 1fr; } nav { padding: 0 20px; } section, .cats { padding-left: 20px; padding-right: 20px; } }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--glass);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 0.5px solid var(--glass-border);
-    border-radius: 20px; overflow: hidden; cursor: pointer; transition: all 0.3s ease;
-  }
-  .card:hover {
-    background: rgba(255,255,255,0.075);
-    border-color: rgba(201,165,90,0.32);
-    transform: translateY(-4px);
-    box-shadow: 0 24px 56px rgba(0,0,0,0.5), inset 0 0.5px 0 rgba(255,255,255,0.12);
-  }
-  .card-thumb {
-    height: 160px; display: flex; align-items: center; justify-content: center;
-    font-size: 40px;
-  }
-  .card-body { padding: 16px; }
-  .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
-  .tag { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; }
-  .tag-new     { background: rgba(163,245,90,0.10); color: var(--vivo);  border: 0.5px solid rgba(163,245,90,0.2); }
-  .tag-premium { background: rgba(201,165,90,0.08); color: var(--oro);   border: 0.5px solid rgba(201,165,90,0.2); }
-  .tag-cat     { background: rgba(255,255,255,0.06); color: rgba(237,232,223,0.45); border: 0.5px solid var(--glass-border); }
-  .card-title  { font-family: var(--serif); font-size: 17px; font-weight: 500; color: var(--pergamino); margin-bottom: 6px; line-height: 1.25; letter-spacing: -0.01em; }
-  .card-desc   { font-size: 12px; color: rgba(237,232,223,0.38); line-height: 1.5; margin-bottom: 14px; }
-  .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 0.5px solid var(--glass-border); }
-  .card-author { font-size: 11px; color: rgba(237,232,223,0.3); }
-  .card-action {
-    font-size: 11px; font-weight: 600; font-family: var(--sans);
-    padding: 5px 12px; border-radius: 8px;
-    background: var(--vivo); color: var(--boveda); border: none; cursor: pointer; transition: all 0.2s;
-  }
-  .card-action:hover { background: #b8ff6a; }
-  .card-action.locked { background: rgba(201,165,90,0.1); color: var(--oro); border: 0.5px solid rgba(201,165,90,0.2); }
-
-  /* ── FEATURED ── */
-  .card-featured {
-    grid-column: span 2;
-    background: var(--glass);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 0.5px solid rgba(201,165,90,0.18); border-radius: 20px; overflow: hidden;
-    display: grid; grid-template-columns: 1fr 1fr; cursor: pointer; transition: all 0.3s ease;
-  }
-  .card-featured:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(201,165,90,0.35);
-    transform: translateY(-4px);
-    box-shadow: 0 24px 56px rgba(0,0,0,0.5);
-  }
-  .card-featured-visual {
-    background: rgba(255,255,255,0.02);
-    display: flex; align-items: center; justify-content: center; min-height: 240px;
-  }
-  .card-featured-body { padding: 28px; display: flex; flex-direction: column; justify-content: center; }
-
-  /* ── GAMIF ── */
+  /* ── GAMIFICACIÓN ── */
   .gamif-banner {
     background: var(--glass);
     backdrop-filter: var(--glass-blur);
@@ -247,7 +73,6 @@
     border-radius: 24px; padding: 32px 36px;
     display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; align-items: center;
   }
-  @media (max-width: 700px) { .gamif-banner { grid-template-columns: repeat(2,1fr); } }
   .level-item { text-align: center; }
   .level-icon {
     width: 52px; height: 52px; border-radius: 16px;
@@ -256,17 +81,6 @@
   }
   .level-name { font-family: var(--serif); font-size: 15px; margin-bottom: 3px; }
   .level-desc { font-size: 11px; color: rgba(237,232,223,0.35); line-height: 1.4; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 0.5px solid var(--glass-border);
-    padding: 40px 40px 28px;
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-    position: relative; z-index: 1;
-  }
-  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-  .footer-links a { font-size: 12px; color: rgba(237,232,223,0.25); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: rgba(237,232,223,0.55); }
 
   /* ── VAULT INTRO ── */
   #vault-intro {
@@ -327,6 +141,18 @@
     transition: color 0.4s;
   }
   #vault-label.unlocked { color: rgba(163,245,90,0.8); }
+
+  /* ── RESPONSIVE PÁGINA INICIO ── */
+  @media (max-width: 700px) {
+    .gamif-banner { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { gap: 24px; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn-hero-primary, .btn-hero-ghost { text-align: center; }
+    .gamif-banner { padding: 24px 20px; }
+  }
 </style>
 </head>
 <body>
@@ -362,34 +188,36 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <svg viewBox="0 0 146 36" height="26" style="display:block; flex-shrink:0;">
-    <text x="0" y="28" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="22" fill="rgba(237,232,223,0.75)">La</text>
-    <text x="30" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">B</text>
-    <g transform="translate(48,1)">
-      <circle cx="13" cy="16" r="13" fill="none" stroke="#C9A55A" stroke-width="1.2"/>
-      <g stroke="#C9A55A" stroke-width="0.5" opacity="0.4">
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(0 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(30 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(60 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(90 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(120 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(150 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(180 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(210 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(240 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(270 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(300 13 16)"/>
-        <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(330 13 16)"/>
+  <a href="./" class="nav-logo">
+    <svg viewBox="0 0 146 36" height="26" style="display:block;">
+      <text x="0" y="28" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="22" fill="rgba(237,232,223,0.75)">La</text>
+      <text x="30" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">B</text>
+      <g transform="translate(48,1)">
+        <circle cx="13" cy="16" r="13" fill="none" stroke="#C9A55A" stroke-width="1.2"/>
+        <g stroke="#C9A55A" stroke-width="0.5" opacity="0.4">
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(0 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(30 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(60 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(90 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(120 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(150 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(180 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(210 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(240 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(270 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(300 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(330 13 16)"/>
+        </g>
+        <circle cx="13" cy="16" r="4" fill="#C9A55A"/>
+        <circle cx="13" cy="16" r="2" fill="#0E0D0B"/>
+        <polygon points="13,3 11,6 15,6" fill="#A3F55A"/>
       </g>
-      <circle cx="13" cy="16" r="4" fill="#C9A55A"/>
-      <circle cx="13" cy="16" r="2" fill="#0E0D0B"/>
-      <polygon points="13,3 11,6 15,6" fill="#A3F55A"/>
-    </g>
-    <text x="76" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">VEDA</text>
-  </svg>
+      <text x="76" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">VEDA</text>
+    </svg>
+  </a>
 
   <div class="nav-links">
-    <a href="#">Recursos</a>
+    <a href="recursos/">Recursos</a>
     <a href="#">Categorías</a>
     <a href="#">Comunidad</a>
     <a href="#">Bóvedas</a>
@@ -398,8 +226,23 @@
   <div class="nav-actions">
     <button class="btn-ghost">Ingresar</button>
     <button class="btn-primary">Registrarse</button>
+    <button class="nav-burger" id="nav-burger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Menú móvil -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="recursos/">Recursos</a>
+  <a href="#">Categorías</a>
+  <a href="#">Comunidad</a>
+  <a href="#">Bóvedas</a>
+  <div class="nav-mobile-actions">
+    <button class="btn-ghost">Ingresar</button>
+    <button class="btn-primary">Registrarse</button>
+  </div>
+</div>
 
 <!-- ── HERO ── -->
 <div class="hero">
@@ -560,7 +403,7 @@
   </div>
 </div>
 
-<!-- ── CATS ── -->
+<!-- ── CATEGORÍAS ── -->
 <div class="cats">
   <div style="margin-bottom:12px;">
     <p style="font-family:'EB Garamond',serif;font-size:13px;color:rgba(237,232,223,0.35);letter-spacing:0.1em;text-transform:uppercase;">Explorar por categoría</p>
@@ -579,15 +422,15 @@
   </div>
 </div>
 
-<!-- ── RECURSOS ── -->
+<!-- ── RECURSOS DESTACADOS ── -->
 <section>
   <div class="section-header">
     <h2 class="section-title">Recursos destacados</h2>
-    <a href="#" class="section-link">Ver todos →</a>
+    <a href="recursos/" class="section-link">Ver todos →</a>
   </div>
   <div class="grid">
 
-    <!-- Featured -->
+    <!-- Destacado -->
     <div class="card-featured">
       <div class="card-featured-visual">
         <svg width="140" height="140" viewBox="0 0 160 160" opacity="0.55">
@@ -748,13 +591,11 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div>
-    <div style="font-family:var(--serif);font-size:14px;color:rgba(237,232,223,0.35);margin-bottom:5px;">
-      <em>La</em> Bóveda &middot; by Join Media Co.
-    </div>
+    <div style="font-family:var(--serif);font-size:14px;color:rgba(237,232,223,0.35);margin-bottom:5px;"><em>La</em> Bóveda &middot; by Join Media Co.</div>
     <div style="font-size:11px;color:rgba(237,232,223,0.18);">© 2025 · Todos los derechos reservados</div>
   </div>
   <div class="footer-links">
-    <a href="#">Recursos</a>
+    <a href="recursos/">Recursos</a>
     <a href="#">Comunidad</a>
     <a href="#">Términos</a>
     <a href="#">Privacidad</a>
@@ -763,8 +604,10 @@
   <div style="font-size:11px;color:rgba(237,232,223,0.18);text-align:right;">laboveda.vercel.app</div>
 </footer>
 
+<script src="main.js"></script>
+
 <script>
-  // Categorías
+  // Pills (decorativo en homepage — no filtra)
   document.querySelectorAll('.cat-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
@@ -774,7 +617,7 @@
 
   // Dial gira en hover
   let dialAngle = 0;
-  const wm = document.getElementById('heroWordmark');
+  const wm   = document.getElementById('heroWordmark');
   const dial = document.getElementById('heroDial');
   if (wm && dial) {
     wm.addEventListener('mouseenter', () => {
@@ -789,24 +632,21 @@
   const intro = document.getElementById('vault-intro');
   if (!intro) return;
 
-  // Solo una vez por sesión
   if (sessionStorage.getItem('vaultOpened')) { intro.remove(); return; }
   sessionStorage.setItem('vaultOpened', '1');
 
-  // Generar marcas del dial en SVG
-  const ns = 'http://www.w3.org/2000/svg';
+  const ns    = 'http://www.w3.org/2000/svg';
   const minor = document.getElementById('vt-minor');
   const major = document.getElementById('vt-major');
   for (let i = 0; i < 36; i++) {
-    const deg = i * 10;
+    const deg  = i * 10;
     const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', '80');
-    line.setAttribute('x2', '80');
+    line.setAttribute('x1', '80'); line.setAttribute('x2', '80');
     if (deg % 30 === 0) {
-      line.setAttribute('y1', '8');  line.setAttribute('y2', '16');
+      line.setAttribute('y1', '8'); line.setAttribute('y2', '16');
       major.appendChild(line);
     } else {
-      line.setAttribute('y1', '8');  line.setAttribute('y2', '12');
+      line.setAttribute('y1', '8'); line.setAttribute('y2', '12');
       minor.appendChild(line);
     }
     line.setAttribute('transform', `rotate(${deg} 80 80)`);
@@ -833,31 +673,22 @@
 
   async function run() {
     await wait(400);
-
-    await spin(480, 900);                    // derecha ~1.3 vueltas
+    await spin(480, 900);
     dots[0].classList.add('active');
     await wait(320);
-
-    await spin(-300, 780);                   // izquierda ~0.8 vueltas
+    await spin(-300, 780);
     dots[1].classList.add('active');
     await wait(320);
-
-    await spin(160, 580);                    // derecha ~0.4 vueltas
+    await spin(160, 580);
     dots[2].classList.add('active');
     await wait(260);
-
-    // Desbloqueo
     dial.classList.add('unlocked');
     label.textContent = 'Desbloqueado';
     label.classList.add('unlocked');
     seam.classList.add('glow');
-
     await wait(700);
-
-    // Apertura de puertas
     panelTop.classList.add('open');
     panelBot.classList.add('open');
-
     await wait(1100);
     intro.style.transition    = 'opacity 0.3s';
     intro.style.opacity       = '0';

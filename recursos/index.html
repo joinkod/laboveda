@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="La Bóveda — Catálogo completo de recursos para diseñadores, mercadólogos y creativos. Filtra por categoría, descarga gratis o con bóvedas."/>
+<title>Recursos — La Bóveda</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  /* ── CABECERA DE PÁGINA ── */
+  .page-header {
+    padding: 120px 40px 60px;
+    position: relative; z-index: 1;
+  }
+  .page-header-inner {
+    max-width: 640px;
+  }
+  .page-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--oro); margin-bottom: 20px;
+  }
+  .page-eyebrow::before {
+    content: ''; width: 24px; height: 0.5px; background: var(--oro); display: block;
+  }
+  .page-title {
+    font-family: var(--serif); font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400; letter-spacing: -0.02em; line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .page-subtitle {
+    font-size: 14px; color: rgba(237,232,223,0.45); line-height: 1.6;
+  }
+
+  /* ── BARRA DE BÚSQUEDA ── */
+  .search-wrap {
+    padding: 0 40px 32px;
+    position: relative; z-index: 1;
+  }
+  .search-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--glass);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 0.5px solid var(--glass-border);
+    border-radius: 16px; padding: 12px 16px;
+    transition: border-color 0.2s;
+    max-width: 600px;
+  }
+  .search-bar:focus-within { border-color: rgba(201,165,90,0.4); }
+  .search-bar svg { flex-shrink: 0; opacity: 0.35; }
+  .search-bar input {
+    flex: 1; background: none; border: none; outline: none;
+    font-family: var(--sans); font-size: 14px; color: var(--pergamino);
+    caret-color: var(--oro);
+  }
+  .search-bar input::placeholder { color: rgba(237,232,223,0.28); }
+
+  /* ── BARRA DE FILTROS ── */
+  .filter-wrap {
+    padding: 0 40px 40px;
+    position: relative; z-index: 1;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .filter-left { display: flex; flex-direction: column; gap: 12px; flex: 1; min-width: 0; }
+  .filter-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+  /* Pills de tipo (Gratis / Premium) */
+  .type-pills { display: flex; gap: 6px; }
+  .type-pill {
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    padding: 6px 14px; border-radius: 20px;
+    border: 0.5px solid var(--glass-border);
+    color: rgba(237,232,223,0.45);
+    background: var(--glass);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .type-pill:hover { color: rgba(237,232,223,0.8); border-color: rgba(255,255,255,0.18); }
+  .type-pill.active { background: rgba(255,255,255,0.1); color: var(--pergamino); border-color: rgba(255,255,255,0.22); }
+  .type-pill.active[data-type="free"]    { background: rgba(163,245,90,0.1); color: var(--vivo); border-color: rgba(163,245,90,0.28); }
+  .type-pill.active[data-type="premium"] { background: rgba(201,165,90,0.1); color: var(--oro);  border-color: rgba(201,165,90,0.28); }
+
+  /* Select de orden */
+  .sort-select {
+    font-family: var(--sans); font-size: 12px;
+    padding: 7px 14px; border-radius: 10px;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 0.5px solid var(--glass-border);
+    color: rgba(237,232,223,0.55);
+    cursor: pointer; outline: none;
+    appearance: none; -webkit-appearance: none;
+    padding-right: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23EDE8DF' stroke-opacity='0.35' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  /* Contador de resultados */
+  .results-count {
+    font-size: 12px; color: rgba(237,232,223,0.3);
+    letter-spacing: 0.04em; padding: 6px 0;
+  }
+  .results-count strong { color: rgba(237,232,223,0.6); font-weight: 500; }
+
+  /* Estado vacío */
+  .empty-state {
+    text-align: center; padding: 80px 40px;
+    display: none;
+  }
+  .empty-state.visible { display: block; }
+  .empty-state-icon { font-size: 40px; margin-bottom: 16px; opacity: 0.4; }
+  .empty-state-text { font-family: var(--serif); font-size: 20px; color: rgba(237,232,223,0.35); }
+
+  /* ── CARGAR MÁS ── */
+  .load-more-wrap { text-align: center; padding: 0 40px 80px; position: relative; z-index: 1; }
+
+  /* ── RESPONSIVE RECURSOS ── */
+  @media (max-width: 768px) {
+    .filter-wrap { flex-direction: column; }
+    .filter-right { width: 100%; }
+    .sort-select { flex: 1; }
+  }
+  @media (max-width: 600px) {
+    .page-header { padding: 100px 20px 40px; }
+    .search-wrap { padding: 0 20px 24px; }
+    .filter-wrap { padding: 0 20px 32px; }
+    .load-more-wrap { padding: 0 20px 60px; }
+    .cat-row { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+    .cat-row::-webkit-scrollbar { display: none; }
+    .cats { padding-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="../" class="nav-logo">
+    <svg viewBox="0 0 146 36" height="26" style="display:block;">
+      <text x="0" y="28" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="22" fill="rgba(237,232,223,0.75)">La</text>
+      <text x="30" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">B</text>
+      <g transform="translate(48,1)">
+        <circle cx="13" cy="16" r="13" fill="none" stroke="#C9A55A" stroke-width="1.2"/>
+        <g stroke="#C9A55A" stroke-width="0.5" opacity="0.4">
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(0 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(30 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(60 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(90 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(120 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(150 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(180 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(210 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(240 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(270 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(300 13 16)"/>
+          <line x1="13" y1="3.5" x2="13" y2="5.5" transform="rotate(330 13 16)"/>
+        </g>
+        <circle cx="13" cy="16" r="4" fill="#C9A55A"/>
+        <circle cx="13" cy="16" r="2" fill="#0E0D0B"/>
+        <polygon points="13,3 11,6 15,6" fill="#A3F55A"/>
+      </g>
+      <text x="76" y="28" font-family="'EB Garamond',Georgia,serif" font-size="26" fill="#EDE8DF" letter-spacing="-0.5">VEDA</text>
+    </svg>
+  </a>
+
+  <div class="nav-links">
+    <a href="./" class="current">Recursos</a>
+    <a href="#">Categorías</a>
+    <a href="#">Comunidad</a>
+    <a href="#">Bóvedas</a>
+  </div>
+
+  <div class="nav-actions">
+    <button class="btn-ghost">Ingresar</button>
+    <button class="btn-primary">Registrarse</button>
+    <button class="nav-burger" id="nav-burger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Menú móvil -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="./" class="current">Recursos</a>
+  <a href="#">Categorías</a>
+  <a href="#">Comunidad</a>
+  <a href="#">Bóvedas</a>
+  <div class="nav-mobile-actions">
+    <button class="btn-ghost">Ingresar</button>
+    <button class="btn-primary">Registrarse</button>
+  </div>
+</div>
+
+<!-- ── CABECERA ── -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Catálogo completo</div>
+    <h1 class="page-title">El archivo de recursos</h1>
+    <p class="page-subtitle">Templates, fuentes, paletas, guías, mockups y más. Todo curado para diseñadores, mercadólogos y creativos.</p>
+  </div>
+</div>
+
+<!-- ── BÚSQUEDA ── -->
+<div class="search-wrap">
+  <div class="search-bar">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <circle cx="6.5" cy="6.5" r="5" stroke="#EDE8DF" stroke-width="1.2"/>
+      <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#EDE8DF" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="Buscar recursos, categorías, formatos…" autocomplete="off"/>
+  </div>
+</div>
+
+<!-- ── FILTROS ── -->
+<div class="filter-wrap">
+  <div class="filter-left">
+    <div class="cat-row">
+      <button class="cat-pill active" data-cat="all">Todo</button>
+      <button class="cat-pill" data-cat="branding">Branding</button>
+      <button class="cat-pill" data-cat="ui">UI / UX</button>
+      <button class="cat-pill" data-cat="tipo">Tipografía</button>
+      <button class="cat-pill" data-cat="ilus">Ilustración</button>
+      <button class="cat-pill" data-cat="foto">Fotografía</button>
+      <button class="cat-pill" data-cat="mkt">Marketing</button>
+      <button class="cat-pill" data-cat="motion">Motion</button>
+      <button class="cat-pill" data-cat="color">Color</button>
+      <button class="cat-pill" data-cat="mock">Mockups</button>
+    </div>
+    <div class="type-pills">
+      <button class="type-pill active" data-type="all">Todo</button>
+      <button class="type-pill" data-type="free">Gratis</button>
+      <button class="type-pill" data-type="premium">Premium</button>
+    </div>
+  </div>
+  <div class="filter-right">
+    <select class="sort-select" id="sort-select">
+      <option value="recent">Más recientes</option>
+      <option value="popular">Más descargados</option>
+      <option value="featured">Destacados</option>
+    </select>
+    <span class="results-count" id="results-count"><strong>15</strong> recursos</span>
+  </div>
+</div>
+
+<!-- ── CATÁLOGO ── -->
+<section style="padding-top:0;">
+  <div class="grid" id="resources-grid">
+
+    <!-- 1 -->
+    <div class="card" data-cat="branding" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1c1a14,#0E0D0B);">🏷️</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-new">Nuevo</span><span class="tag tag-cat">Branding</span></div>
+        <h3 class="card-title">Kit de identidad visual para startups</h3>
+        <p class="card-desc">Plantillas en Figma e Illustrator: logo, paleta, tipografía, papelería y aplicaciones digitales.</p>
+        <div class="card-footer">
+          <span class="card-author">Join Media Co.</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card" data-cat="branding" data-type="premium">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1a1710,#0E0D0B);">📋</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Branding</span></div>
+        <h3 class="card-title">Guía de naming para marcas</h3>
+        <p class="card-desc">Marco estratégico + ejercicios para crear nombres de marca memorables y registrables.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 200 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card" data-cat="color" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1c1a17,#0E0D0B);">🎨</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-cat">Color</span></div>
+        <h3 class="card-title">100 paletas de color para marca</h3>
+        <p class="card-desc">Paletas curadas con valores HEX, RGB y CMYK. Organizadas por tono y temperamento.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card" data-cat="color" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#17191c,#0E0D0B);">🌈</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-new">Nuevo</span><span class="tag tag-cat">Color</span></div>
+        <h3 class="card-title">Generador de paletas armónicas</h3>
+        <p class="card-desc">Guía visual de teoría del color aplicada: análogos, complementarios, tríadas y más.</p>
+        <div class="card-footer">
+          <span class="card-author">comunidad</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card" data-cat="tipo" data-type="premium">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#18171a,#0E0D0B);">✍️</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Tipografía</span></div>
+        <h3 class="card-title">Guía de maridaje tipográfico</h3>
+        <p class="card-desc">50 combinaciones de fuentes probadas con ejemplos visuales y contextos de uso.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 120 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card" data-cat="tipo" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1a1718,#0E0D0B);">🔤</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-cat">Tipografía</span></div>
+        <h3 class="card-title">Pack de 20 fuentes para branding</h3>
+        <p class="card-desc">Selección de fuentes serif y sans con licencia comercial libre. Listos para usar.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card" data-cat="ui" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#171a18,#0E0D0B);">📐</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-new">Nuevo</span><span class="tag tag-cat">UI / UX</span></div>
+        <h3 class="card-title">Sistema de grillas para web y app</h3>
+        <p class="card-desc">Plantillas en Figma: 4, 8 y 12 columnas para desktop, tablet y mobile.</p>
+        <div class="card-footer">
+          <span class="card-author">comunidad</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card" data-cat="ui" data-type="premium">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#16171a,#0E0D0B);">🧩</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">UI / UX</span></div>
+        <h3 class="card-title">Kit de componentes para Figma</h3>
+        <p class="card-desc">Más de 200 componentes: botones, inputs, cards, nav, modales y más. Dark + Light mode.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 150 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="card" data-cat="mock" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1a1718,#0E0D0B);">📦</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-cat">Mockups</span></div>
+        <h3 class="card-title">Pack de mockups de packaging</h3>
+        <p class="card-desc">40 mockups de cajas, bolsas y etiquetas en PSD y Figma. Smart object listo.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card" data-cat="mock" data-type="premium">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#171a1a,#0E0D0B);">📱</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Mockups</span></div>
+        <h3 class="card-title">60 mockups de dispositivos</h3>
+        <p class="card-desc">iPhone, Mac, Android, tableta y wearables en escenas naturales y planas.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 100 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="card" data-cat="mkt" data-type="premium">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#161819,#0E0D0B);">📣</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Marketing</span></div>
+        <h3 class="card-title">Estrategia de contenido para redes</h3>
+        <p class="card-desc">Calendario editorial + guía de tono de voz para marcas digitales.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 80 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="card" data-cat="mkt" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#191618,#0E0D0B);">📸</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-new">Nuevo</span><span class="tag tag-cat">Marketing</span></div>
+        <h3 class="card-title">Kit de plantillas para Instagram</h3>
+        <p class="card-desc">30 plantillas para feed y stories en Canva y Figma. Edición sencilla.</p>
+        <div class="card-footer">
+          <span class="card-author">comunidad</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="card" data-cat="ilus" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1a1619,#0E0D0B);">✏️</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-cat">Ilustración</span></div>
+        <h3 class="card-title">200 íconos minimalistas SVG</h3>
+        <p class="card-desc">Set de íconos de línea en SVG. Tamaños 16, 24 y 32px. Licencia comercial libre.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="card" data-cat="motion" data-type="premium">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#14171a,#0E0D0B);">🎬</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-premium">Premium</span><span class="tag tag-cat">Motion</span></div>
+        <h3 class="card-title">Guía de animación para marcas</h3>
+        <p class="card-desc">Principios de motion design aplicados a branding: intro, transiciones y loops.</p>
+        <div class="card-footer">
+          <span class="card-author">La Bóveda</span>
+          <button class="card-action locked">🔒 180 bóvedas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="card" data-cat="foto" data-type="free">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1a1a16,#0E0D0B);">🌿</div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag tag-new">Nuevo</span><span class="tag tag-cat">Fotografía</span></div>
+        <h3 class="card-title">Presets Lightroom para marcas</h3>
+        <p class="card-desc">15 presets con paletas de marca: tierra, minimalista, vibrante, oscuro y más.</p>
+        <div class="card-footer">
+          <span class="card-author">comunidad</span>
+          <button class="card-action">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" id="empty-state">
+    <div class="empty-state-icon">🔍</div>
+    <p class="empty-state-text">No se encontraron recursos con esos filtros.</p>
+  </div>
+</section>
+
+<!-- ── CARGAR MÁS ── -->
+<div class="load-more-wrap">
+  <button class="btn-hero-ghost">Cargar más recursos</button>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div style="font-family:var(--serif);font-size:14px;color:rgba(237,232,223,0.35);margin-bottom:5px;"><em>La</em> Bóveda &middot; by Join Media Co.</div>
+    <div style="font-size:11px;color:rgba(237,232,223,0.18);">© 2025 · Todos los derechos reservados</div>
+  </div>
+  <div class="footer-links">
+    <a href="./">Recursos</a>
+    <a href="#">Comunidad</a>
+    <a href="#">Términos</a>
+    <a href="#">Privacidad</a>
+    <a href="#">Contacto</a>
+  </div>
+  <div style="font-size:11px;color:rgba(237,232,223,0.18);text-align:right;">laboveda.vercel.app</div>
+</footer>
+
+<script src="../main.js"></script>
+
+<script>
+(function () {
+  const grid       = document.getElementById('resources-grid');
+  const countEl    = document.getElementById('results-count');
+  const emptyState = document.getElementById('empty-state');
+  const searchInput = document.getElementById('search-input');
+
+  let activeCat  = 'all';
+  let activeType = 'all';
+
+  function getCards() {
+    return Array.from(grid.querySelectorAll('.card'));
+  }
+
+  function updateCount(visible) {
+    countEl.innerHTML = `<strong>${visible}</strong> recurso${visible !== 1 ? 's' : ''}`;
+  }
+
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+
+    getCards().forEach(card => {
+      const matchCat  = activeCat  === 'all' || card.dataset.cat  === activeCat;
+      const matchType = activeType === 'all' || card.dataset.type === activeType;
+      const text      = card.textContent.toLowerCase();
+      const matchSearch = !query || text.includes(query);
+
+      if (matchCat && matchType && matchSearch) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    updateCount(visible);
+    emptyState.classList.toggle('visible', visible === 0);
+  }
+
+  // Filtros de categoría
+  document.querySelectorAll('.cat-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCat = pill.dataset.cat;
+      applyFilters();
+    });
+  });
+
+  // Filtros de tipo
+  document.querySelectorAll('.type-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeType = pill.dataset.type;
+      applyFilters();
+    });
+  });
+
+  // Búsqueda
+  searchInput.addEventListener('input', applyFilters);
+
+  updateCount(getCards().length);
+})();
+</script>
+</body>
+</html>

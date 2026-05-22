@@ -81,13 +81,18 @@ La moneda interna se llama **bóvedas**.
 ## Estructura actual del proyecto
 ```
 laboveda/
-├── index.html          ← homepage completo (CSS + JS inline)
-├── laboveda-logo.svg   ← logo fuente para Illustrator
-└── CLAUDE.md           ← este archivo
+├── index.html              ← homepage
+├── recursos/
+│   └── index.html          ← catálogo completo con filtros y búsqueda
+├── styles.css              ← CSS compartido entre páginas
+├── main.js                 ← JS compartido (menú móvil)
+├── favicon.svg             ← ícono del dial para el browser
+├── laboveda-logo.svg       ← logo fuente para Illustrator
+└── CLAUDE.md               ← este archivo
 ```
 
 ## Páginas planeadas (pendientes)
-- [ ] `/recursos` — catálogo completo con filtros
+- [x] `/recursos` — catálogo completo con filtros ✅
 - [ ] `/recurso/[id]` — página individual de recurso
 - [ ] `/perfil` — perfil de usuario con nivel y bóvedas
 - [ ] `/registro` — onboarding
@@ -152,8 +157,15 @@ laboveda/
 - ✅ **Espaciado uniforme logo nav** — mismo ajuste proporcional. Dial: translate(58→48), VEDA: x=86→76, viewBox: 220→146
 - ✅ Git configurado con identidad: Davo / joinmediaco@gmail.com
 
+### v0.3 — 2026-05-22
+- ✅ **Migración a archivos separados** — `styles.css` y `main.js` compartidos entre páginas
+- ✅ **Favicon** — `favicon.svg` con el dial (anillo dorado + centro + indicador verde)
+- ✅ **Fix mobile nav** — hamburguesa con animación X/bars, menú desplegable glassmorphism, oculta "Ingresar" en móvil
+- ✅ **Fix responsive homepage** — hero reduce padding en 600px, stats con gap reducido, botones hero full-width en móvil, gamif-banner ajusta padding
+- ✅ **Página `/recursos`** — catálogo con 15 recursos, búsqueda en tiempo real, filtros por categoría + tipo (gratis/premium), contador de resultados, estado vacío, "Cargar más"
+- ✅ **Navegación entre páginas** — logo como link, "Recursos" activo en su página, links funcionales entre home y catálogo
+
 ### Próxima sesión
-- [ ] Revisar homepage en mobile y corregir lo que sea necesario
-- [ ] Crear página `/recursos` con catálogo y filtros
-- [ ] Agregar favicon con el símbolo del dial
-- [ ] Definir estructura de navegación entre páginas
+- [ ] Crear página `/recurso/[id]` — detalle de recurso individual
+- [ ] Conectar botones de descarga a archivos reales o formulario de registro
+- [ ] Definir sistema de autenticación (registro / login)
